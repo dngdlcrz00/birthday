@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>HBD 💙</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Nunito:wght@400;700;900&display=swap" rel="stylesheet"/>
+<style>
+/* ─── RESET & BASE ─────────────────────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Nunito',sans-serif;overflow-x:hidden;background:#0a0a1a}
+
+/* ─── PAGE SHELLS ───────────────────────────────────────────── */
+.page{
+  min-height:100vh;width:100%;
+  display:none;flex-direction:column;
+  align-items:center;justify-content:center;
+  position:relative;overflow:hidden;padding:40px 20px;
+}
+.page.active{display:flex}
+
+/* ════════════════════════════════════════════════════════════
+   PAGE 1 — HOME
+════════════════════════════════════════════════════════════ */
+#p1{
+  background:radial-gradient(ellipse at 50% 60%, #0d2060 0%, #050818 70%);
+}
+
+/* Stars */
+.star{
+  position:absolute;border-radius:50%;background:#fff;
+  animation:twinkle var(--d,3s) ease-in-out infinite;
+  opacity:0;pointer-events:none;
+}
+@keyframes twinkle{
+  0%,100%{opacity:0;transform:scale(.5)}
+  50%{opacity:1;transform:scale(1)}
+}
+
+/* Floating hearts */
+.fheart{
+  position:absolute;bottom:-60px;pointer-events:none;
+  animation:floatUp var(--dur,8s) ease-in var(--del,0s) infinite;
+  opacity:0;
+}
+@keyframes floatUp{
+  0%{transform:translateY(0) rotate(0deg);opacity:.9}
+  100%{transform:translateY(-110vh) rotate(360deg);opacity:0}
+}
+
+/* Main text */
+.home-title{
+  font-family:'Great Vibes',cursive;
+  font-size:clamp(3rem,10vw,7rem);
+  color:#fff;
+  text-shadow:0 0 40px rgba(120,180,255,.7),0 0 80px rgba(80,140,255,.4);
+  opacity:0;transform:translateY(50px);
+  animation:riseIn 1.4s cubic-bezier(.22,1,.36,1) .4s forwards;
+  text-align:center;line-height:1.1;
+}
+.home-sub{
+  font-size:clamp(.9rem,2.5vw,1.2rem);
+  color:rgba(180,210,255,.8);letter-spacing:4px;
+  text-transform:uppercase;margin-top:14px;
+  opacity:0;animation:riseIn 1s ease 1.6s forwards;
+}
+@keyframes riseIn{to{opacity:1;transform:translateY(0)}}
+
+.btn-main{
+  margin-top:52px;
+  padding:18px 64px;
+  font-family:'Great Vibes',cursive;font-size:2rem;
+  color:#0d1a40;
+  background:linear-gradient(135deg,#f9d84a,#f4845f);
+  border:none;border-radius:60px;cursor:pointer;
+  box-shadow:0 8px 32px rgba(249,200,74,.4);
+  opacity:0;transform:scale(.7);
+  animation:popIn .7s cubic-bezier(.34,1.56,.64,1) 2.4s forwards;
+  transition:transform .18s,box-shadow .18s;
+}
+.btn-main:hover{transform:scale(1.08);box-shadow:0 12px 40px rgba(249,200,74,.6)}
+@keyframes popIn{to{opacity:1;transform:scale(1)}}
+
+/* ════════════════════════════════════════════════════════════
+   PAGE 2 — QUIZ
+════════════════════════════════════════════════════════════ */
+#p2{background:linear-gradient(160deg,#0d1b50 0%,#1a0a3e 100%)}
+
+.quiz-card{
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.14);
+  backdrop-filter:blur(12px);
+  border-radius:28px;padding:52px 40px;
+  max-width:480px;width:100%;text-align:center;
+  box-shadow:0 24px 64px rgba(0,0,0,.5);
+  animation:popIn .5s cubic-bezier(.34,1.56,.64,1);
+}
+.quiz-lock{font-size:3rem;margin-bottom:8px}
+.quiz-title{
+  font-family:'Great Vibes',cursive;font-size:2.4rem;
+  color:#a8d4ff;margin-bottom:6px;
+}
+.quiz-sub{color:rgba(200,220,255,.55);font-size:.9rem;margin-bottom:36px}
+.quiz-q{
+  font-size:2.2rem;font-weight:900;color:#fff;
+  margin-bottom:32px;letter-spacing:1px;
+}
+.quiz-input{
+  width:100%;padding:18px 20px;border-radius:16px;
+  border:2px solid rgba(120,160,255,.3);
+  background:rgba(255,255,255,.08);color:#fff;
+  font-size:1.4rem;font-family:'Nunito',sans-serif;
+  text-align:center;outline:none;
+  transition:border-color .2s,background .2s;
+}
+.quiz-input:focus{border-color:#5b9cf6;background:rgba(255,255,255,.13)}
+.quiz-input::placeholder{color:rgba(255,255,255,.3)}
+.quiz-btn{
+  margin-top:22px;width:100%;padding:18px;
+  border-radius:16px;border:none;cursor:pointer;
+  background:linear-gradient(135deg,#5b9cf6,#7c4dff);
+  color:#fff;font-family:'Great Vibes',cursive;font-size:1.7rem;
+  box-shadow:0 8px 24px rgba(91,156,246,.35);
+  transition:opacity .2s,transform .15s;
+}
+.quiz-btn:hover{opacity:.9;transform:translateY(-2px)}
+.quiz-err{
+  margin-top:16px;min-height:24px;
+  font-weight:700;font-size:.95rem;
+  transition:color .2s;
+}
+.quiz-hint{color:rgba(180,200,255,.45);font-size:.82rem;margin-top:8px}
+
+/* ════════════════════════════════════════════════════════════
+   PAGE 3 — BIRTHDAY
+════════════════════════════════════════════════════════════ */
+#p3{
+  background:radial-gradient(ellipse at 50% 40%, #0a1f5e 0%, #040912 80%);
+  flex-direction:column;gap:0;
+}
+
+/* Confetti */
+.conf{
+  position:fixed;top:-20px;pointer-events:none;z-index:20;
+  animation:confFall var(--d,5s) linear var(--del,0s) infinite;
+  border-radius:var(--r,3px);opacity:.9;
+}
+@keyframes confFall{
+  0%{transform:translateY(0) rotate(0deg) translateX(0);opacity:1}
+  100%{transform:translateY(110vh) rotate(720deg) translateX(var(--dx,0px));opacity:0}
+}
+
+/* Kisses */
+.kiss{
+  position:fixed;top:-50px;pointer-events:none;z-index:21;
+  animation:kissFall var(--d,6s) ease-in var(--del,0s) infinite;
+}
+@keyframes kissFall{
+  0%{transform:translateY(0) scale(.8);opacity:1}
+  100%{transform:translateY(110vh) scale(1.4);opacity:0}
+}
+
+/* Bouquet */
+.bouquet-wrap{
+  position:relative;z-index:5;
+  animation:float 3.5s ease-in-out infinite;
+}
+@keyframes float{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-16px)}
+}
+.bouquet-svg{
+  width:min(360px,88vw);
+  filter:drop-shadow(0 12px 40px rgba(80,140,255,.55));
+}
+
+.bday-text{
+  font-family:'Great Vibes',cursive;
+  font-size:clamp(2rem,7vw,3.8rem);
+  color:#fff;text-align:center;
+  margin-top:28px;line-height:1.35;z-index:5;
+  text-shadow:0 0 20px rgba(140,190,255,.8);
+  animation:glow 2.2s ease-in-out infinite alternate;
+}
+@keyframes glow{
+  from{text-shadow:0 0 12px rgba(120,180,255,.5)}
+  to{text-shadow:0 0 36px rgba(120,180,255,1),0 0 70px rgba(80,130,255,.6)}
+}
+
+.btn-next{
+  margin-top:44px;z-index:5;
+  padding:16px 56px;
+  font-family:'Nunito',sans-serif;font-weight:900;font-size:1.1rem;
+  color:#fff;letter-spacing:1px;
+  background:rgba(255,255,255,.12);
+  border:2px solid rgba(255,255,255,.3);
+  border-radius:50px;cursor:pointer;
+  backdrop-filter:blur(8px);
+  transition:background .2s,transform .15s;
+}
+.btn-next:hover{background:rgba(255,255,255,.22);transform:scale(1.05)}
+
+/* ════════════════════════════════════════════════════════════
+   PAGE 4 — DATE PROPOSAL
+════════════════════════════════════════════════════════════ */
+#p4{background:linear-gradient(160deg,#1a0030 0%,#2d0a50 50%,#0a1540 100%)}
+
+/* Petals */
+.petal{
+  position:absolute;top:-50px;pointer-events:none;
+  animation:petalDrift var(--d,7s) ease-in var(--del,0s) infinite;
+}
+@keyframes petalDrift{
+  0%{transform:translateY(0) rotate(0deg);opacity:1}
+  100%{transform:translateY(110vh) rotate(200deg) translateX(var(--dx,30px));opacity:0}
+}
+
+.date-q{
+  font-family:'Great Vibes',cursive;
+  font-size:clamp(2.5rem,8vw,5rem);
+  color:#e8b4ff;text-align:center;
+  text-shadow:0 0 20px rgba(200,100,255,.6);
+  margin-bottom:12px;z-index:3;
+  animation:riseIn .8s ease forwards;
+}
+.date-sub{
+  color:rgba(220,180,255,.6);font-size:1rem;
+  margin-bottom:56px;text-align:center;z-index:3;
+  letter-spacing:2px;
+  animation:riseIn .8s ease .3s forwards;opacity:0;
+}
+.date-btns{
+  display:flex;gap:28px;align-items:center;
+  flex-wrap:wrap;justify-content:center;z-index:3;
+}
+
+.btn-yes-date{
+  padding:20px 56px;
+  font-family:'Great Vibes',cursive;font-size:2rem;
+  color:#fff;
+  background:linear-gradient(135deg,#e91e8c,#9c27b0);
+  border:none;border-radius:60px;cursor:pointer;
+  box-shadow:0 10px 32px rgba(233,30,140,.4);
+  animation:popIn .5s cubic-bezier(.34,1.56,.64,1) .5s both;
+  transition:transform .18s,box-shadow .18s;
+  transform-origin:center;
+}
+.btn-yes-date:hover{transform:scale(1.06);box-shadow:0 14px 40px rgba(233,30,140,.6)}
+
+.btn-no-date{
+  padding:14px 36px;
+  font-family:'Nunito',sans-serif;font-weight:700;font-size:1rem;
+  color:rgba(255,255,255,.55);
+  background:rgba(255,255,255,.08);
+  border:2px solid rgba(255,255,255,.2);
+  border-radius:50px;cursor:pointer;
+  animation:popIn .5s cubic-bezier(.34,1.56,.64,1) .7s both;
+  transition:all .2s;
+}
+.btn-no-date:hover{background:rgba(255,255,255,.14)}
+
+/* ════════════════════════════════════════════════════════════
+   PAGE 5 — FIREWORKS / ENDING
+════════════════════════════════════════════════════════════ */
+#p5{background:#030610}
+
+#fw-canvas{
+  position:fixed;inset:0;
+  pointer-events:none;z-index:2;
+}
+
+.end-content{
+  position:relative;z-index:5;
+  text-align:center;
+  display:flex;flex-direction:column;align-items:center;gap:16px;
+}
+.end-hearts{font-size:clamp(2rem,8vw,4rem);letter-spacing:8px;
+  animation:pulse 1.2s ease-in-out infinite alternate}
+@keyframes pulse{from{transform:scale(1)}to{transform:scale(1.15)}}
+
+.end-title{
+  font-family:'Great Vibes',cursive;
+  font-size:clamp(3rem,12vw,8rem);
+  color:#fff;
+  text-shadow:0 0 30px rgba(255,150,200,.9),0 0 70px rgba(255,100,180,.5);
+  animation:riseIn 1s ease forwards;
+}
+.end-sub{
+  font-size:clamp(1rem,3vw,1.5rem);
+  color:rgba(255,200,230,.8);letter-spacing:3px;
+  animation:riseIn 1s ease .4s forwards;opacity:0;
+}
+
+/* ─── RESPONSIVE ─────────────────────────────────────────── */
+@media(max-width:480px){
+  .quiz-card{padding:36px 22px}
+  .date-btns{flex-direction:column;align-items:center}
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════
+     PAGE 1  HOME
+══════════════════════════════════════════════ -->
+<div class="page active" id="p1">
+  <div id="star-field"></div>
+  <div id="heart-field"></div>
+  <h1 class="home-title">Are you ready? </h1>
+  <p class="home-sub">something is waiting for you…</p>
+  <button class="btn-main" onclick="showPage('p2')">Yes ✨</button>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     PAGE 2  QUIZ
+══════════════════════════════════════════════ -->
+<div class="page" id="p2">
+  <div class="quiz-card">
+    <div class="quiz-lock">🔐</div>
+    <div class="quiz-title">Secret Password</div>
+    <p class="quiz-sub">Solve this to unlock your surprise!</p>
+    <div class="quiz-q" id="quiz-q"></div>
+    <input class="quiz-input" id="quiz-ans" type="number" placeholder="Your answer…"
+      onkeydown="if(event.key==='Enter')checkAns()"/>
+    <button class="quiz-btn" onclick="checkAns()">Unlock 🗝️</button>
+    <div class="quiz-err" id="quiz-err"></div>
+    <div class="quiz-hint" id="quiz-hint"></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     PAGE 3  BIRTHDAY
+══════════════════════════════════════════════ -->
+<div class="page" id="p3">
+  <!-- confetti + kisses injected by JS -->
+  <div class="bouquet-wrap">
+    <!-- ── Blue Hydrangea Bouquet SVG ── -->
+    <svg class="bouquet-svg" viewBox="0 0 360 400" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <!-- single tiny 4-petal floret -->
+        <g id="f">
+          <ellipse cx="0" cy="-5.5" rx="3.8" ry="5.5" fill="currentColor" opacity=".92"/>
+          <ellipse cx="5.5" cy="0"   rx="5.5" ry="3.8" fill="currentColor" opacity=".92"/>
+          <ellipse cx="0" cy="5.5"   rx="3.8" ry="5.5" fill="currentColor" opacity=".92"/>
+          <ellipse cx="-5.5" cy="0"  rx="5.5" ry="3.8" fill="currentColor" opacity=".92"/>
+          <circle cx="0" cy="0" r="2.8" fill="#e8f4ff" opacity=".85"/>
+        </g>
+      </defs>
+
+      <!-- ── Stems ── -->
+      <g stroke="#4a7c3f" stroke-width="5" stroke-linecap="round" fill="none">
+        <path d="M180 400 Q178 340 175 270"/>
+        <path d="M180 400 Q182 342 186 272"/>
+        <path d="M180 400 Q170 338 158 262"/>
+        <path d="M180 400 Q190 338 202 262"/>
+        <path d="M180 400 Q162 330 136 248"/>
+        <path d="M180 400 Q198 330 224 248"/>
+        <path d="M180 400 Q155 322 118 238"/>
+        <path d="M180 400 Q205 322 242 238"/>
+      </g>
+
+      <!-- ── Leaves ── -->
+      <ellipse cx="163" cy="355" rx="18" ry="9" fill="#5a9e45" transform="rotate(-35 163 355)"/>
+      <ellipse cx="198" cy="358" rx="18" ry="9" fill="#5a9e45" transform="rotate(28 198 358)"/>
+      <ellipse cx="148" cy="332" rx="14" ry="7" fill="#4a8a38" transform="rotate(-55 148 332)"/>
+      <ellipse cx="214" cy="328" rx="14" ry="7" fill="#4a8a38" transform="rotate(45 214 328)"/>
+      <ellipse cx="135" cy="310" rx="12" ry="6" fill="#3d7830" transform="rotate(-65 135 310)"/>
+      <ellipse cx="228" cy="305" rx="12" ry="6" fill="#3d7830" transform="rotate(58 228 305)"/>
+
+      <!-- ── Ribbon bow ── -->
+      <path d="M156 392 Q180 378 204 392 Q192 360 180 372 Q168 360 156 392Z" fill="#ff85a1" opacity=".88"/>
+      <circle cx="180" cy="378" r="6" fill="#ff5f85" opacity=".9"/>
+
+      <!-- ══ CLUSTER HELPER MACRO — defined as groups ══ -->
+
+      <!-- Center cluster (largest, deep blue) -->
+      <g transform="translate(180,210)" color="#3d82d4">
+        <use href="#f" transform="translate(0,0)"/>
+        <use href="#f" transform="translate(13,-8)"/>
+        <use href="#f" transform="translate(-13,-8)"/>
+        <use href="#f" transform="translate(8,13)"/>
+        <use href="#f" transform="translate(-8,13)"/>
+        <use href="#f" transform="translate(22,2)"/>
+        <use href="#f" transform="translate(-22,2)"/>
+        <use href="#f" transform="translate(2,-22)"/>
+        <use href="#f" transform="translate(18,-18)"/>
+        <use href="#f" transform="translate(-18,-18)"/>
+        <use href="#f" transform="translate(20,14)"/>
+        <use href="#f" transform="translate(-20,14)"/>
+        <use href="#f" transform="translate(28,-6)"/>
+        <use href="#f" transform="translate(-28,-6)"/>
+        <use href="#f" transform="translate(10,-30)"/>
+        <use href="#f" transform="translate(-10,-30)"/>
+        <use href="#f" transform="translate(28,18)"/>
+        <use href="#f" transform="translate(-28,18)"/>
+        <use href="#f" transform="translate(8,30)"/>
+        <use href="#f" transform="translate(-8,30)"/>
+        <use href="#f" transform="translate(34,6)"/>
+        <use href="#f" transform="translate(-34,6)"/>
+        <use href="#f" transform="translate(24,-24)"/>
+        <use href="#f" transform="translate(-24,-24)"/>
+      </g>
+      <!-- center mid layer — lighter blue -->
+      <g transform="translate(180,210)" color="#6aaae8">
+        <use href="#f" transform="translate(6,-6) scale(.78)"/>
+        <use href="#f" transform="translate(-6,6) scale(.78)"/>
+        <use href="#f" transform="translate(16,8) scale(.72)"/>
+        <use href="#f" transform="translate(-16,-8) scale(.72)"/>
+        <use href="#f" transform="translate(24,-2) scale(.68)"/>
+        <use href="#f" transform="translate(-24,2) scale(.68)"/>
+        <use href="#f" transform="translate(4,-26) scale(.66)"/>
+        <use href="#f" transform="translate(-4,26) scale(.66)"/>
+        <use href="#f" transform="translate(30,12) scale(.62)"/>
+        <use href="#f" transform="translate(-30,-12) scale(.62)"/>
+      </g>
+
+      <!-- Left cluster -->
+      <g transform="translate(138,225) scale(.84)" color="#4a8fd8">
+        <use href="#f" transform="translate(0,0)"/>
+        <use href="#f" transform="translate(12,-7)"/>
+        <use href="#f" transform="translate(-11,-8)"/>
+        <use href="#f" transform="translate(7,13)"/>
+        <use href="#f" transform="translate(-7,13)"/>
+        <use href="#f" transform="translate(20,3)"/>
+        <use href="#f" transform="translate(-20,3)"/>
+        <use href="#f" transform="translate(3,-21)"/>
+        <use href="#f" transform="translate(17,-17)"/>
+        <use href="#f" transform="translate(-17,-17)"/>
+        <use href="#f" transform="translate(22,14)"/>
+        <use href="#f" transform="translate(-22,14)"/>
+        <use href="#f" transform="translate(26,-5)"/>
+        <use href="#f" transform="translate(-26,-5)"/>
+        <use href="#f" transform="translate(9,-27)"/>
+        <use href="#f" transform="translate(-9,-27)"/>
+        <use href="#f" transform="translate(26,20)"/>
+        <use href="#f" transform="translate(-26,20)"/>
+      </g>
+      <g transform="translate(138,225) scale(.84)" color="#88bff0">
+        <use href="#f" transform="translate(6,-4) scale(.72)"/>
+        <use href="#f" transform="translate(-6,4) scale(.72)"/>
+        <use href="#f" transform="translate(16,6) scale(.66)"/>
+        <use href="#f" transform="translate(-16,-6) scale(.66)"/>
+        <use href="#f" transform="translate(22,-3) scale(.6)"/>
+      </g>
+
+      <!-- Right cluster -->
+      <g transform="translate(222,225) scale(.84)" color="#4a8fd8">
+        <use href="#f" transform="translate(0,0)"/>
+        <use href="#f" transform="translate(-12,-7)"/>
+        <use href="#f" transform="translate(11,-8)"/>
+        <use href="#f" transform="translate(-7,13)"/>
+        <use href="#f" transform="translate(7,13)"/>
+        <use href="#f" transform="translate(-20,3)"/>
+        <use href="#f" transform="translate(20,3)"/>
+        <use href="#f" transform="translate(-3,-21)"/>
+        <use href="#f" transform="translate(-17,-17)"/>
+        <use href="#f" transform="translate(17,-17)"/>
+        <use href="#f" transform="translate(-22,14)"/>
+        <use href="#f" transform="translate(22,14)"/>
+        <use href="#f" transform="translate(-26,-5)"/>
+        <use href="#f" transform="translate(26,-5)"/>
+        <use href="#f" transform="translate(-9,-27)"/>
+        <use href="#f" transform="translate(9,-27)"/>
+        <use href="#f" transform="translate(-26,20)"/>
+        <use href="#f" transform="translate(26,20)"/>
+      </g>
+      <g transform="translate(222,225) scale(.84)" color="#88bff0">
+        <use href="#f" transform="translate(-6,-4) scale(.72)"/>
+        <use href="#f" transform="translate(6,4) scale(.72)"/>
+        <use href="#f" transform="translate(-16,6) scale(.66)"/>
+        <use href="#f" transform="translate(16,-6) scale(.66)"/>
+        <use href="#f" transform="translate(-22,-3) scale(.6)"/>
+      </g>
+
+      <!-- Far-left cluster -->
+      <g transform="translate(104,248) scale(.7)" color="#2e6db8">
+        <use href="#f" transform="translate(0,0)"/>
+        <use href="#f" transform="translate(12,-6)"/>
+        <use href="#f" transform="translate(-10,-8)"/>
+        <use href="#f" transform="translate(6,13)"/>
+        <use href="#f" transform="translate(-6,13)"/>
+        <use href="#f" transform="translate(19,3)"/>
+        <use href="#f" transform="translate(-19,3)"/>
+        <use href="#f" transform="translate(3,-19)"/>
+        <use href="#f" transform="translate(16,-15)"/>
+        <use href="#f" transform="translate(-16,-15)"/>
+        <use href="#f" transform="translate(20,14)"/>
+        <use href="#f" transform="translate(-20,14)"/>
+        <use href="#f" transform="translate(24,-4)"/>
+        <use href="#f" transform="translate(-24,-4)"/>
+      </g>
+
+      <!-- Far-right cluster -->
+      <g transform="translate(256,248) scale(.7)" color="#2e6db8">
+        <use href="#f" transform="translate(0,0)"/>
+        <use href="#f" transform="translate(-12,-6)"/>
+        <use href="#f" transform="translate(10,-8)"/>
+        <use href="#f" transform="translate(-6,13)"/>
+        <use href="#f" transform="translate(6,13)"/>
+        <use href="#f" transform="translate(-19,3)"/>
+        <use href="#f" transform="translate(19,3)"/>
+        <use href="#f" transform="translate(-3,-19)"/>
+        <use href="#f" transform="translate(-16,-15)"/>
+        <use href="#f" transform="translate(16,-15)"/>
+        <use href="#f" transform="translate(-20,14)"/>
+        <use href="#f" transform="translate(20,14)"/>
+        <use href="#f" transform="translate(-24,-4)"/>
+        <use href="#f" transform="translate(24,-4)"/>
+      </g>
+
+      <!-- Small accent sprays -->
+      <g color="#b0d6f8">
+        <use href="#f" transform="translate(168,195) scale(.55)"/>
+        <use href="#f" transform="translate(193,198) scale(.55)"/>
+        <use href="#f" transform="translate(180,242) scale(.5)"/>
+        <use href="#f" transform="translate(126,234) scale(.5)"/>
+        <use href="#f" transform="translate(234,234) scale(.5)"/>
+        <use href="#f" transform="translate(100,256) scale(.46)"/>
+        <use href="#f" transform="translate(260,256) scale(.46)"/>
+      </g>
+
+      <!-- white shimmer dots -->
+      <g fill="#fff" opacity=".55">
+        <circle cx="180" cy="195" r="2"/>
+        <circle cx="155" cy="220" r="1.5"/>
+        <circle cx="205" cy="218" r="1.5"/>
+        <circle cx="138" cy="238" r="1.3"/>
+        <circle cx="222" cy="236" r="1.3"/>
+        <circle cx="104" cy="252" r="1.2"/>
+        <circle cx="256" cy="250" r="1.2"/>
+      </g>
+    </svg>
+  </div>
+
+  <p class="bday-text">Happy happy birthdayyyyyyy,<br/>I love you so muchieeee! 💙🎂</p>
+  <button class="btn-next" onclick="goToDate()">Next →</button>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     PAGE 4  DATE PROPOSAL
+══════════════════════════════════════════════ -->
+<div class="page" id="p4">
+  <div id="petal-field"></div>
+  <h1 class="date-q">Date tayo pag uwi mo? 💕</h1>
+  <div class="date-btns">
+    <button class="btn-yes-date" id="btn-yes" onclick="goToEnding()">Oo naman! 💗</button>
+    <button class="btn-no-date"  id="btn-no"  onclick="noClick()">No</button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     PAGE 5  ENDING — FIREWORKS
+══════════════════════════════════════════════ -->
+<div class="page" id="p5">
+  <canvas id="fw-canvas"></canvas>
+  <div class="end-content">
+    <div class="end-hearts">💙💖💙</div>
+    <h1 class="end-title">See you,<br/>Labyu! 💋</h1>
+    <p class="end-sub">YEHEY!!! ✨</p>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     JAVASCRIPT
+══════════════════════════════════════════════ -->
+<script>
+/* ─── PAGE SWITCHER ─────────────────────────── */
+function showPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+/* ─── PAGE 1: STARS + HEARTS ───────────────── */
+(function buildHome(){
+  const sf = document.getElementById('star-field');
+  for(let i=0;i<130;i++){
+    const s=document.createElement('div');s.className='star';
+    const sz=Math.random()*3+.8;
+    s.style.cssText=`
+      width:${sz}px;height:${sz}px;
+      top:${Math.random()*100}%;left:${Math.random()*100}%;
+      --d:${2+Math.random()*4}s;
+      animation-delay:${Math.random()*5}s;
+      position:absolute;
+    `;
+    sf.appendChild(s);
+  }
+  const hf=document.getElementById('heart-field');
+  const es=['💙','💫','✨','🌟','💎','🌙'];
+  for(let i=0;i<22;i++){
+    const h=document.createElement('div');h.className='fheart';
+    h.textContent=es[Math.floor(Math.random()*es.length)];
+    h.style.cssText=`
+      left:${Math.random()*100}%;font-size:${.9+Math.random()*1.2}rem;
+      --dur:${6+Math.random()*8}s;--del:${Math.random()*8}s;
+    `;
+    hf.appendChild(h);
+  }
+})();
+
+/* ─── PAGE 2: QUIZ ─────────────────────────── */
+// (15 × 10) − 7 = 143
+document.getElementById('quiz-q').textContent='(15 × 10) − 7 = ?';
+const ANSWER=143;let wrongs=0;
+
+function checkAns(){
+  const v=parseInt(document.getElementById('quiz-ans').value,10);
+  const err=document.getElementById('quiz-err');
+  const hint=document.getElementById('quiz-hint');
+  if(v===ANSWER){
+    err.style.color='#6fea8a';err.textContent='✅ Correct! Opening your surprise…';
+    setTimeout(()=>{ showPage('p3'); startBirthday(); },900);
+  } else {
+    wrongs++;
+    err.style.color='#ff85a1';err.textContent='❌ Wrong! Try again 🥺';
+    if(wrongs>=2) hint.textContent='Hint: 15 times 10, then subtract 7 😉';
+    document.getElementById('quiz-ans').value='';
+    document.getElementById('quiz-ans').focus();
+  }
+}
+
+/* ─── PAGE 3: BIRTHDAY FX ───────────────────── */
+let hbdCtx,hbdLoop;
+
+function startBirthday(){
+  spawnConfetti();
+  spawnKisses();
+  playHBD();
+}
+
+function spawnConfetti(){
+  const colors=['#4a90d9','#ff85a1','#f9d84a','#9b5de5','#00d4aa','#ff6b6b','#fff','#ffb347'];
+  for(let i=0;i<160;i++){
+    const c=document.createElement('div');c.className='conf';
+    const sz=6+Math.random()*9;
+    c.style.cssText=`
+      width:${sz}px;height:${sz}px;
+      left:${Math.random()*100}%;
+      background:${colors[Math.floor(Math.random()*colors.length)]};
+      --d:${3+Math.random()*5}s;
+      --del:${Math.random()*6}s;
+      --dx:${(Math.random()-.5)*80}px;
+      --r:${Math.random()>.5?'50%':'3px'};
+    `;
+    document.getElementById('p3').appendChild(c);
+  }
+}
+
+function spawnKisses(){
+  const es=['💋','😘','💌','💖','💝','🌟','✨','💗'];
+  for(let i=0;i<35;i++){
+    const k=document.createElement('div');k.className='kiss';
+    k.textContent=es[Math.floor(Math.random()*es.length)];
+    k.style.cssText=`
+      left:${Math.random()*100}%;font-size:${1.1+Math.random()*1.4}rem;
+      --d:${4+Math.random()*6}s;--del:${Math.random()*7}s;
+    `;
+    document.getElementById('p3').appendChild(k);
+  }
+}
+
+function playHBD(){
+  try{
+    hbdCtx=new(window.AudioContext||window.webkitAudioContext)();
+    // Happy Birthday To You — pitches + durations (in beats, 1 beat ≈ 0.38s)
+    const song=[
+      [261.63,.75],[261.63,.25],[293.66,1],[261.63,1],[349.23,1],[329.63,2],
+      [261.63,.75],[261.63,.25],[293.66,1],[261.63,1],[392.00,1],[349.23,2],
+      [261.63,.75],[261.63,.25],[523.25,1],[440.00,1],[349.23,1],[329.63,1],[293.66,2],
+      [466.16,.75],[466.16,.25],[440.00,1],[349.23,1],[392.00,1],[349.23,2.5],
+    ];
+    const BPM=100,beat=60/BPM;
+    function schedule(startT){
+      let t=startT;
+      song.forEach(([f,d])=>{
+        const osc=hbdCtx.createOscillator();
+        const gain=hbdCtx.createGain();
+        osc.connect(gain);gain.connect(hbdCtx.destination);
+        osc.type='triangle';osc.frequency.value=f;
+        gain.gain.setValueAtTime(0,t);
+        gain.gain.linearRampToValueAtTime(.22,t+.04);
+        gain.gain.linearRampToValueAtTime(0,t+d*beat-.04);
+        osc.start(t);osc.stop(t+d*beat);
+        t+=d*beat*.95;
+      });
+      return t;
+    }
+    let end=schedule(hbdCtx.currentTime+.1);
+    hbdLoop=setInterval(()=>{ end=schedule(end+.15); },( end-hbdCtx.currentTime)*1000-200 );
+  } catch(e){}
+}
+
+function stopHBD(){
+  if(hbdLoop) clearInterval(hbdLoop);
+  if(hbdCtx){ try{ hbdCtx.close(); }catch(e){} }
+}
+
+/* ─── PAGE 4: DATE PROPOSAL ─────────────────── */
+let noCount=0;
+
+function goToDate(){
+  stopHBD();
+  showPage('p4');
+  spawnPetals();
+}
+
+function spawnPetals(){
+  const wrap=document.getElementById('petal-field');
+  const es=['🌸','🌺','💕','🌷','🌹','✨','💖','🦋'];
+  for(let i=0;i<28;i++){
+    const p=document.createElement('div');p.className='petal';
+    p.textContent=es[Math.floor(Math.random()*es.length)];
+    p.style.cssText=`
+      left:${Math.random()*100}%;font-size:${.9+Math.random()*.9}rem;
+      --d:${5+Math.random()*7}s;--del:${Math.random()*8}s;
+      --dx:${(Math.random()-.5)*90}px;
+    `;
+    wrap.appendChild(p);
+  }
+}
+
+const noPhrases=[
+  'Are you sure? 🥺','Come onnnn!! 🙏','Please? 😭','PLEASE?? 😭💔',
+  'Last chance!! 🫶','I will cry 😢','DALIIIII 😏',
+  'Okay fine, I\'ll beg 🙈','LUHHH 🥺','SAY YES NA!! 😤💕',
+];
+
+function noClick(){
+  noCount++;
+  const yBtn=document.getElementById('btn-yes');
+  const nBtn=document.getElementById('btn-no');
+  const scale=1+noCount*.22;
+  const nScale=Math.max(.35,1-noCount*.1);
+  yBtn.style.transform=`scale(${scale})`;
+  yBtn.style.boxShadow=`0 ${8+noCount*4}px ${32+noCount*8}px rgba(233,30,140,${Math.min(.9,.4+noCount*.07)})`;
+  nBtn.style.transform=`scale(${nScale})`;
+  nBtn.style.opacity=Math.max(.2,1-noCount*.12);
+  const q=document.querySelector('.date-q');
+  q.textContent=(noPhrases[Math.min(noCount-1,noPhrases.length-1)])+' 💕';
+}
+
+/* ─── PAGE 5: FIREWORKS ─────────────────────── */
+function goToEnding(){
+  showPage('p5');
+  initFireworks();
+  playYay();
+}
+
+function playYay(){
+  try{
+    const ac=new(window.AudioContext||window.webkitAudioContext)();
+    [523,659,784,1047,1319].forEach((f,i)=>{
+      const o=ac.createOscillator(),g=ac.createGain();
+      o.connect(g);g.connect(ac.destination);
+      o.type='sine';o.frequency.value=f;
+      const t=ac.currentTime+i*.13;
+      g.gain.setValueAtTime(.3,t);
+      g.gain.linearRampToValueAtTime(0,t+.5);
+      o.start(t);o.stop(t+.6);
+    });
+  } catch(e){}
+}
+
+function initFireworks(){
+  const canvas=document.getElementById('fw-canvas');
+  const ctx=canvas.getContext('2d');
+  function resize(){ canvas.width=innerWidth; canvas.height=innerHeight; }
+  resize(); window.addEventListener('resize',resize);
+
+  const particles=[];
+  const palette=[
+    '#ff85a1','#f9d84a','#4a90d9','#9b5de5',
+    '#00d4aa','#ff6b6b','#ffffff','#ffb347','#e8b4ff','#80ffdb'
+  ];
+
+  function burst(){
+    const x=80+Math.random()*(canvas.width-160);
+    const y=80+Math.random()*(canvas.height*.55);
+    const col=palette[Math.floor(Math.random()*palette.length)];
+    const n=55+Math.floor(Math.random()*30);
+    for(let i=0;i<n;i++){
+      const angle=(Math.PI*2/n)*i+(Math.random()-.5)*.4;
+      const spd=2+Math.random()*4.5;
+      particles.push({
+        x,y,
+        vx:Math.cos(angle)*spd,
+        vy:Math.sin(angle)*spd,
+        alpha:1,col,
+        sz:2+Math.random()*3,
+        gravity:.06+Math.random()*.04,
+        drag:.97
+      });
+    }
+  }
+
+  // Launch bursts
+  burst();
+  const launcher=setInterval(burst, 650);
+  setTimeout(()=>clearInterval(launcher), 12000); // stop after 12s
+  setInterval(burst, 3000); // occasional burst forever
+
+  function draw(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    for(let i=particles.length-1;i>=0;i--){
+      const p=particles[i];
+      p.x+=p.vx; p.y+=p.vy;
+      p.vy+=p.gravity;
+      p.vx*=p.drag; p.vy*=p.drag;
+      p.alpha-=.016;
+      if(p.alpha<=0){ particles.splice(i,1); continue; }
+      ctx.globalAlpha=p.alpha;
+      ctx.fillStyle=p.col;
+      ctx.beginPath();
+      ctx.arc(p.x,p.y,p.sz,0,Math.PI*2);
+      ctx.fill();
+    }
+    ctx.globalAlpha=1;
+    requestAnimationFrame(draw);
+  }
+  draw();
+}
+</script>
+</body>
+</html>
